@@ -1,0 +1,956 @@
+<html>
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Fontdiner+Swanky' rel='stylesheet' type='text/css'>
+<body>
+<div id="container">
+<audio controls="controls" >
+  <source src="Cops.mp3" id="audio" type="audio/mpeg">
+</audio>
+</div>
+</body>
+<style>
+
+body{
+    background-color: #CDCDCD;
+    
+}
+h2{
+	position: absolute;
+	top:-100px;
+	text-align: center;
+	font-size: 600%;
+	color:black;
+	font-family: 'Fontdiner Swanky', cursive;
+	
+		
+}
+h3{
+	position: absolute;
+	top:50px;
+	
+	font-size: 240%;
+	color:black;
+	font-family: 'Indie Flower', cursive;
+	
+		
+}
+button{
+	position: absolute;
+	top:680px;
+	left:200px;
+    width: 380px;
+    height: 80px;
+	background-color:black;
+	color:white;
+	font-size: 200%;
+	font-family: 'Indie Flower', cursive;
+
+}
+
+#container audio{	
+	position: absolute;
+	left: 1250px;
+	top:
+	width: 245px;
+	height: 53px;
+}
+
+
+#audio {
+	top: 225px
+}
+</style>
+
+<script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
+		<script type="text/processing" data-processing-target="mycanvas">
+	
+			var brickList=[];
+			var brickList2=[];
+			var brickList3=[];
+			var brickList4=[];
+			var brickList5=[];
+			var brickList6=[];
+			var brickList7=[];
+			var robber;
+			var guard1;
+			var americangothic;
+			var guernica;
+			//var guard2;
+			var paintingslist=[];
+			var lap;
+			var thekiss;
+			var thescream;
+			var monalisa;
+			var persistenceofmemory;
+			var stryNight;
+			var caughtCounter=0;
+			//var myAudio= new Audio("War.mp3");
+			//myAudio.play();
+			//myAudio.addEventListener('ended', function(){
+				//myAudio.src="Cops.mp3";
+				//myAudio.pause();
+				//myAudio.play();
+				//myAudio.load();
+			//});
+
+			PFont font;
+
+
+			
+			
+			
+			
+			void setup() 
+			{
+				lap=0;
+				size(1592,780);
+				
+				for( var i=0;i<11;i++){
+					brickList.push(new Brick (i*64,200));
+					brickList2.push(new Brick (i*64,264));
+					brickList3.push(new Brick (i*64,328));
+					brickList4.push(new Brick (i*64,392));
+					brickList5.push(new Brick (i*64,456));
+					brickList6.push(new Brick(i*64,520));
+					brickList7.push(new Brick(i*64,584));
+				} 
+				robber= new Robber([0,0,0],28,612,6,4);
+				guard1= new Guard1([192,192,192],356,426,2,2);
+				//guard2= new Guard1([96,96,96],20,170,2,2);
+				monalisa=new MonaLisa(682,410);
+				persistenceofmemory= new PersistenceofMemory(335,200);
+				stryNight= new StryNight(0, 410);
+				thescream= new TheScream(335,626);
+				thekiss= new TheKiss(682,280);
+				americangothic=new AmericanGothic(0,280);
+				guernica= new Guernica(72,626);
+				
+			}
+		
+		
+		void draw(){
+			for( var i=0 ;i<11;i++){
+				brickList[i].drawBrick();
+				brickList7[i].drawBrick();
+					
+				if ((i>0 && i<5) || (i>5 && i<10)){ 
+					brickList3[i].drawBrick(1);
+					brickList4[i].drawBrick(1);
+					brickList5[i].drawBrick(1);
+					brickList2[i].drawBrick(1);
+					brickList6[i].drawBrick(1);
+					
+				}
+				else{
+					brickList5[i].drawBrick(2);
+					brickList3[i].drawBrick(2);
+					brickList4[i].drawBrick(2);
+					brickList2[i].drawBrick(2);
+					brickList6[i].drawBrick(2);
+				
+				}
+
+			}
+			robber.lapSeven();
+			guernica.drawGuernica();
+			robber.lapSix();
+			americangothic.drawAmericanGothic();
+			robber.drawRobber();
+			//console.log("xPost: " + robber.xPost +" yPost: "+robber.yPost);
+			guard1.drawGuard1();
+			guard1.keyPressed();
+			//guard2.keyPressed();
+			guard1.mover();
+			//guard2.mover();
+			if (caughtCounter===0){
+				if (robberCaught()===true){
+					caughtCounter=caughtCounter+1;
+				}
+			}
+			if (caughtCounter>0&&caughtCounter<8){
+				caughtCounter= caughtCounter+1;
+			}	
+			if (caughtCounter>=8){
+				caughtCounter=0;
+			}
+			robber.lapTwo();
+			thekiss.drawTheKiss();
+			robberWins();
+			robber.istoplCorner();
+			robber.istoprCorner();
+			robber.isbottomrCorner();
+			robber.lapOne();
+			robber.lapThree();
+			stryNight.drawStryNight();
+			robber.lapFive();
+			thescream.drawTheScream();
+			robber.lapFour();
+			robber.isbottomlCorner();
+			monalisa.drawMonaLisa();
+			persistenceofmemory.drawPersistenceofMemory();
+			for( var i=0;i<7;i++){
+				fill(0,0,0);
+				font = createFont("fantasy", 50);
+				textFont(font);
+				text(paintingslist[i],750,220+(i*60), 800, 800);
+				
+			}
+			
+
+			//robber.muah();
+		}
+		
+		class Brick { 
+			var width;
+			var height;
+			var xPost;
+			var yPost;
+
+			
+				
+			Brick(x,y){
+				width =64;
+				height=64;
+				xPost=x;
+				yPost=y;
+			}
+				
+				void drawBrick(black){
+					if (black===1){
+						fill(0,0,0);
+						stroke(0,0,0);
+						rect(xPost,yPost,64,64);
+						//console.log(black);
+					}
+					else{
+						fill(248,248,255);
+						stroke(0,0,0);
+						rect(xPost,yPost,64,64);
+						//console.log(black);
+					}
+				}
+					
+		}
+					
+		class Robber { 
+			var xPost;
+			var radius;
+			var yPost;
+			var a;
+			var speedY;
+			var speedX;
+			var r;
+			var g;
+			var b;
+			var play;
+			var bottomLeftCounter = 0;
+			
+			Robber(color,x,y,xSpeed,ySpeed){
+				xPost=x;
+				yPost=y;
+				r = color[0];
+				g = color[1];
+				b = color[2];
+				speedY = ySpeed;
+		        speedX= xSpeed;
+			
+			}
+			void drawRobber(){
+				noStroke();
+				fill(r,g,b);
+				ellipse(xPost,yPost,28,28);
+			
+			}
+			void rightSquare() {
+		
+				xPost += speedX*2;
+				
+			}
+			void leftSquare(){
+				xPost-=speedX*2;
+			}
+			void upSquare(){
+				yPost-=speedY*2;
+			}
+			void downSquare(){
+				yPost+=speedY*2;
+			}
+				void istoplCorner(){
+					if ((xPost<29&&xPost>0)&&(yPost<610&&yPost>225)){
+						downSquare();
+					}
+				}
+				void istoprCorner(){
+					if ((yPost>200&&yPost<230)&&(xPost<704&&xPost>26)){
+						leftSquare();
+					}
+				}
+				void isbottomlCorner(){
+				//beginAgain= false;
+					if ((xPost<676&&xPost>0)&&(yPost>610&&yPost<648)){
+						rightSquare();
+						if (bottomLeftCounter ===0){
+							lap = lap + 1;
+						}
+						bottomLeftCounter +=1;
+						
+											
+					}
+				}
+				void isbottomrCorner(){
+				
+					if ((xPost>675&&xPost<704)&&(yPost<648&&yPost>227)){
+						upSquare();
+						bottomLeftCounter = 0;
+						console.log(lap);
+						
+					}
+				}
+			 
+			void lapOne(){
+				var monaLisa = false;
+				if (lap===1){
+					if ((xPost<=monalisa.xPost+15)&&(xPost>=monalisa.xPost-15)&& (yPost>=monalisa.yPost-25)&&(yPost<=monalisa.yPost+25)){
+						
+						if(paintingslist.length !== 0){
+							for(var i =0; i<paintingslist.length; i++){
+								if(paintingslist[i] === "Mona Lisa"){
+									monaLisa = true;
+									console.log(paintingslist);
+									console.log(monaLisa);
+								}
+							}
+						}
+						else if(!monaLisa){
+							paintingslist.push("Mona Lisa");
+							console.log(paintingslist);
+							console.log(monaLisa);
+							monalisa.xpost=900;
+							monalisa.yPost=900;
+							
+						}
+					}
+		
+				}
+			}
+			
+			void lapThree(){
+				var persistenceofMemory= false;
+				if (lap===3){
+					console.log("3 laps");
+					if ((xPost<=persistenceofmemory.xPost+20)&&(xPost>=persistenceofmemory.xPost-20)&& (yPost>=persistenceofmemory.yPost-30)&&(yPost<=persistenceofmemory.yPost+30)){
+							console.log("truth?");
+						if(paintingslist.length !== 0){
+							console.log("not 0");
+							for(var i =0; i<paintingslist.length; i++){
+								console.log("anything");
+								if(paintingslist[i] === "The Persistence of Memory \n"){
+									persistenceofMemory = true;
+									console.log(paintingslist);
+									console.log(persistenceofMemory);
+								}
+							}
+						}
+						if(!persistenceofMemory){
+							paintingslist.push("The Persistence of Memory \n");
+							console.log(paintingslist);
+							console.log(persistenceofMemory);
+							persistenceofmemory.xpost=900;
+							persistenceofmemory.yPost=900;
+						}	
+					}
+				}
+			}
+		
+				void lapFive(){
+					var starrynight= false;
+					if (lap===5){
+						console.log("5 laps");
+						if ((xPost<=stryNight.xPost+30)&&(xPost>=stryNight.xPost-30)&& (yPost>=stryNight.yPost-30)&&(yPost<=stryNight.yPost+30)){
+								console.log("truth?");
+							if(paintingslist.length !== 0){
+								console.log("not 0");
+								for(var i =0; i<paintingslist.length; i++){
+									console.log("anything");
+									if(paintingslist[i] === "The Starry Night \n"){
+										starrynight = true;
+										console.log(paintingslist);
+										console.log(starrynight);
+									}
+								}
+							}
+							if(!starrynight){
+								paintingslist.push("The Starry Night \n");
+								console.log(paintingslist);
+								console.log(starrynight);
+								stryNight.xpost=900;
+								stryNight.yPost=900;
+							}	
+						}
+					}
+				}
+				void lapSeven(){
+					var g= false;
+					if (lap===7){
+						console.log("5 laps");
+						if ((xPost<=guernica.xPost+30)&&(xPost>=guernica.xPost-30)&& (yPost>=guernica.yPost-30)&&(yPost<=guernica.yPost+30)){
+								console.log("truth?");
+							if(paintingslist.length !== 0){
+								console.log("not 0");
+								for(var i =0; i<paintingslist.length; i++){
+									console.log("anything");
+									if(paintingslist[i] === "Guernica \n"){
+										g = true;
+										console.log(paintingslist);
+										console.log(g);
+									}
+								}
+							}
+							if(!g){
+								paintingslist.push("Guernica \n");
+								console.log(paintingslist);
+								console.log(g);
+								guernica.xpost=900;
+								guernica.yPost=900;
+							}	
+						}
+					}
+				}
+				void lapTwo(){
+					var theKiss= false;
+					if (lap===2){
+						console.log("2 laps");
+						if ((xPost<=thekiss.xPost+30)&&(xPost>=thekiss.xPost-30)&& (yPost>=thekiss.yPost-30)&&(yPost<=thekiss.yPost+30)){
+								console.log("truth?");
+							if(paintingslist.length !== 0){
+								console.log("not 0");
+								for(var i =0; i<paintingslist.length; i++){
+									console.log("anything");
+									if(paintingslist[i] === "The Kiss \n"){
+										theKiss = true;
+										console.log(paintingslist);
+										console.log(theKiss);
+									}
+								}
+							}
+							if(!theKiss){
+								paintingslist.push("The Kiss \n");
+								console.log(paintingslist);
+								console.log(theKiss);
+								thekiss.xpost=900;
+								thekiss.yPost=900;
+							}	
+						}
+					}
+				}
+				void lapSix(){
+					var americanGothic= false;
+					if (lap===6){
+						console.log("6 laps");
+						if ((xPost<=americangothic.xPost+30)&&(xPost>=americangothic.xPost-30)&& (yPost>=americangothic.yPost-30)&&(yPost<=americangothic.yPost+30)){
+								console.log("truth?");
+							if(paintingslist.length !== 0){
+								console.log("not 0");
+								for(var i =0; i<paintingslist.length; i++){
+									console.log("anything");
+									if(paintingslist[i] === "American Gothic \n"){
+										americanGothic = true;
+										console.log(paintingslist);
+										console.log(americanGothic);
+									}
+								}
+							}
+							if(!americanGothic){
+								paintingslist.push("American Gothic \n");
+								console.log(paintingslist);
+								console.log(americanGothic);
+								americangothic.xpost=900;
+								americangothic.yPost=900;
+							}	
+						}
+					}
+				}
+				void lapFour(){
+					var theScream= false;
+					if (lap===4){
+						console.log("4 laps");
+						if ((xPost<=thescream.xPost+30)&&(xPost>=thescream.xPost-30)&& (yPost>=thescream.yPost-30)&&(yPost<=thescream.yPost+30)){
+								console.log("truth?");
+							if(paintingslist.length !== 0){
+								console.log("not 0");
+								for(var i =0; i<paintingslist.length; i++){
+									console.log("anything");
+									if(paintingslist[i] === "The Scream \n"){
+										theScream = true;
+										console.log(paintingslist);
+										console.log(theScream);
+									}
+								}
+							}
+							if(!theScream){
+								paintingslist.push("The Scream \n");
+								console.log(paintingslist);
+								console.log(theScream);
+								thescream.xpost=900;
+								thescream.yPost=900;
+							}	
+						}
+					}
+				}
+			
+		}		
+		//void printList(){
+			//document.write(paintingslist);
+		//}
+			
+		boolean robberCaught(){
+			//console.log("robber caught");
+			if ((robber.xPost<=guard1.xPost+20&&robber.xPost>=guard1.xPost-20)&& (robber.yPost<=guard1.yPost+20&&robber.yPost>=guard1.yPost-20)){
+				console.log("caught");
+				fill(#CDCDCD);
+				noStroke();
+				rect(750,200,700,500);
+				if (paintingslist.length===1){
+					speedX=0;
+					speedY=0;
+					guard1.speedX=0;
+					guard1.speedY=0;
+						//guard2.speedX=0;
+						//guard2.speedY=0;
+					paintingslist.pop();
+					stryNight.xPost=1300;
+					stryNight.yPost=900;
+					monalisa.xPost=1300;
+					monalisa.yPost=900;
+					persistenceofmemory.xPost=1300;
+					persistenceofmemory.yPost=900;
+					fill(0,0,0)
+					noStroke();
+					rect(0,0,1580,800);
+					fill(255,255,255);
+					font = createFont("fantasy", 80);
+					textFont(font);
+					text("Yay! You have caught the robber",300,300);
+					font = createFont("fantasy", 80);
+					textFont(font);
+					text("and arrrested him!",480,380);
+					exit();
+							
+				}
+				paintingslist.pop();
+				console.log(paintingslist);
+					//fill(0,0,0);
+					//font = createFont("fantasy", 50);
+					//textFont(font);
+					//text(paintingslist, 450,0, 800, 800);
+				return true;
+							
+			}
+		}
+			return false;
+		
+		void robberWins(){
+			if (lap===10){
+				paintingslist=[];
+				stryNight.xPost=1300;
+				stryNight.yPost=900;
+				monalisa.xPost=1300;
+				monalisa.yPost=900;
+				persistenceofmemory.xPost=1300;
+				persistenceofmemory.yPost=900;
+				fill(#CDCDCD);
+				noStroke();
+				rect(750,200,700,500);
+				fill(0,0,0)
+				noStroke();
+				rect(0,0,1580,800);
+				fill(255,255,255);
+				font = createFont("fantasy", 80);
+				textFont(font);
+				text("Nooo!!! You let the art",400,300);
+				font = createFont("fantasy", 80);
+				textFont(font);
+				text(" thief escape!",530,380);
+				exit();
+			
+			}
+		}
+					
+		
+		
+	
+		class MonaLisa {
+			var xPost;
+			var yPost;
+			var r
+			var g;
+			var b;
+			var width;
+			var height;
+			MonaLisa(x,y){
+				xPost=x;
+				yPost=y;
+				width =18;
+				height=28;
+					
+			}
+			void drawMonaLisa(){
+				noStroke();
+				fill(0,0,0);
+				rect(xPost,yPost,22,35);
+			}
+		}
+		class TheKiss {
+			var xPost;
+			var yPost;
+			var r
+			var g;
+			var b;
+			var width;
+			var height;
+			TheKiss(x,y){
+				xPost=x;
+				yPost=y;
+				width =18;
+				height=28;
+					
+			}
+			void drawTheKiss(){
+				noStroke();
+				fill(0,0,0);
+				rect(xPost,yPost,22,35);
+			}
+		}
+		class AmericanGothic {
+			var xPost;
+			var yPost;
+			var r
+			var g;
+			var b;
+			var width;
+			var height;
+			AmericanGothic(x,y){
+				xPost=x;
+				yPost=y;
+				width =18;
+				height=28;
+					
+			}
+			void drawAmericanGothic(){
+				noStroke();
+				fill(0,0,0);
+				rect(xPost,yPost,22,35);
+			}
+		}
+		class TheScream {
+			var xPost;
+			var yPost;
+			var r
+			var g;
+			var b;
+			var width;
+			var height;
+			TheScream(x,y){
+				xPost=x;
+				yPost=y;
+				width =18;
+				height=28;
+					
+			}
+			void drawTheScream(){
+				noStroke();
+				fill(0,0,0);
+				rect(xPost,yPost,35,22);
+			}
+		}	
+				
+		class Guernica {
+			var xPost;
+			var yPost;
+			var r
+			var g;
+			var b;
+			var width;
+			var height;
+			Guernica(x,y){
+				xPost=x;
+				yPost=y;
+				width =18;
+				height=28;
+					
+			}
+			void drawGuernica(){
+				noStroke();
+				fill(0,0,0);
+				rect(xPost,yPost,35,22);
+			}
+		}	
+		
+		class PersistenceofMemory {
+			var xPost;
+			var yPost;
+			var r
+			var g;
+			var b;
+			var width;
+			var height;
+			PersistenceofMemory(x,y){
+				xPost=x;
+				yPost=y;
+				width =28;
+				height=18;
+					
+			}
+			void drawPersistenceofMemory(){
+				noStroke();
+				fill(0,0,0);
+				rect(xPost,yPost,35,22);
+			}
+		}
+			class StryNight {
+				var xPost;
+				var yPost;
+				var r;
+				var g;
+				var b;
+				
+				StryNight (x,y){
+					r = color[0];
+					g = color[1];
+					b = color[2];
+					xPost = x;
+					yPost = y;
+				}
+				
+					void drawStryNight (){
+						noStroke();
+						fill(0,0,0);
+						rect(xPost,yPost,22,35);
+					}
+			}
+
+		
+	
+				
+				
+		
+		class Guard1 { 
+			var xPost;
+			var radius;
+			var yPost;
+			var a;
+			var r
+			var g;
+			var b;
+			var speedY;
+			var speedX;
+		 
+			Guard1(color,x,y,xSpeed,ySpeed){
+				xPost=x;
+				yPost=y;
+				r = color[0];
+				g = color[1];
+				b = color[2];
+				speedY = ySpeed;
+				speedX= xSpeed;
+			}
+			
+			
+				void drawGuard1(){
+					noStroke();
+					fill(r,g,b);
+					ellipse(xPost,yPost,28,28);
+				}
+				void keyPressed() {
+						
+					
+						if(keyCode == UP) {
+							if (((xPost>=64&&xPost<=320)||((xPost>=384&&xPost<=640))&& (yPost===594))){
+								speedY=0;
+							}
+							else if (yPost===210){
+								speedY=0;
+							}
+							else{
+								speedY=2;
+							}
+							yPost-=speedY;
+						}
+						if (keyCode == DOWN){
+							if (((xPost>=64&&xPost<=320)||(xPost>=384&&xPost<=640))&& ((yPost===254))){
+								speedY=0;
+							}
+							else if (yPost===638){
+								speedY=0;
+							}
+							else{
+								speedY=2;
+							}
+							yPost-= speedY*-1;
+						}
+						if (keyCode == LEFT){
+							if ((yPost>=264&&yPost<=584)&& ((xPost===330)||(xPost==650))){
+								speedX=0;
+							}
+							else if (xPost===10){
+								speedX=0;
+							}
+							else{
+								speedX=2;
+							}
+							xPost-= speedX;
+						}
+						if (keyCode == RIGHT){
+							if ((yPost>=264&&yPost<=584)&& ((xPost===374)||(xPost===54))){
+								speedX=0;
+							}
+							else if (xPost===694){
+								speedX=0;
+							}
+							else{
+								speedX=2;
+							}
+							xPost-= speedX*-1;
+						}
+						
+					
+
+				}
+				
+				/*void updatePosition() {
+					//figure out xPost and yPost using the speed
+				}*/
+				
+				void mover(){
+					if(yPost>=264&&yPost<=584){
+						if (xPost===64){
+						console.log("FIRST WALL");
+						//guard1.xPost=guard1.xPost-10;
+						speedY=0;
+						speedX=0;
+						//guard2.speedY=0;
+						//guard2.speedX=0;
+						}
+						if (xPost===384){
+							//guard1.xPost=guard1.xPost-10;
+							speedY=0;
+							speedX=0;
+							//guard2.speedY=0;
+							//guard2.speedX=0;
+						}
+						if (xPost===320){
+							//guard1.xPost=guard1.xPost+10;
+							//guard2.xPost=guard2.xPost+10;
+							speedY=0;
+							speedX=0;
+							//guard2.speedY=0;
+							//guard2.speedX=0;
+						}
+						if (xPost===640){
+						
+					
+							speedY=0;
+							speedX=0;
+							//guard2.speedY=0;
+							//guard2.speedX=0;
+						}
+					}
+					if((xPost>=64&&xPost<=320)||(xPost>=384&&xPost<=640)){
+						if (yPost===264){
+						
+						//guard1.yPost=guard1.yPost-10;
+						speedY=0;
+						speedX=0;
+						//guard2.speedY=0;
+						//guard2.speedX=0;
+						}
+						
+						if (yPost===584){
+
+							//guard1.yPost=guard1.yPost+10;
+							speedY=0;
+							speedX=0;
+							//guard2.speedY=0;
+							//guard2.speedX=0;
+						}
+					}
+					if (xPost===64){
+						guard1.xPost=guard1.xPost;
+						//guard2.xPost=guard2.xPost+10;
+						speedY=0;
+						speedX=0;
+						//guard2.speedY=0;
+						//guard2.speedX=0;
+					}
+					if (xPost===704){
+						
+						guard1.xPost=guard1.xPost-10;
+						speedY=0;
+						speedX=0;
+						//guard2.speedY=0;
+						//guard2.speedX=0;
+					}
+					if (yPost===264){
+						
+						//guard1.yPost=guard1.yPost+10;
+						speedY=0;
+						speedX=0;
+						//guard2.speedY=0;
+						//guard2.speedX=0;
+					}
+					if (yPost===648){
+						
+						//guard1.yPost=guard1.yPost-10;
+						speedY=0;
+						speedX=0;
+						//guard2.speedY=0;
+						//guard2.speedX=0;
+					}
+					
+					
+					
+						
+							
+						
+			
+				}
+				
+					
+				
+		}
+	
+		
+			
+		
+		
+		
+		//black = robber
+		//gray = guards
+</script>
+
+	</head>
+	<body>
+		<canvas id="mycanvas" width="2000" height="800"></canvas>
+		<div id = "paintings">		</div>
+		<h2 id="title">
+			THE MUSEUM WATCH
+		</h2>
+		<h3 id="title">
+			To Start: Click anywhere on the page before using arrow keys.<br>The gray circle is you and the robber is the black circle.
+		</h3>
+		<button class = "button" id="RestartGame" >Click here to restart game!</button>
+		<script>
+		$("#RestartGame").click(function(event){
+			event.preventDefault();
+			window.location="museum2-3.html"
+		});
+		</script>
+	
+
+
+	</body>
+	
+</html>

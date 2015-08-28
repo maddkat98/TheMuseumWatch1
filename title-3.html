@@ -1,0 +1,95 @@
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Fontdiner+Swanky' rel='stylesheet' type='text/css'>
+<body>
+<audio autoplay loop >
+  <source src="Cops.mp3" type="audio/mpeg">
+</audio>
+</body>
+<style>
+
+
+body{
+background-color:black;
+}
+#bg-right {
+  background-color:white;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 0;
+  z-index: -1;
+}
+
+h2{
+	position: absolute;
+	top:120px;
+	left: 130px;
+	text-align: center;
+	font-size: 700%;
+	color:white;
+	font-family: 'Fontdiner Swanky', cursive;
+		
+}
+h3{
+	position: absolute;
+	top:100px;
+	left:805px;
+	text-align: center;
+	font-size: 700%;
+	color:black;
+	font-family: 'Fontdiner Swanky', cursive;
+		
+}
+button{
+	position: absolute;
+	top:450px;
+	left:550px;
+    width: 470px;
+    height: 100px;
+	background-color:black;
+	color:white;
+	font-size: 220%;
+	font-family: 'Indie Flower', cursive;
+
+}
+
+</style>
+<script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
+
+	
+
+
+	</head>
+	<body>
+		<h2 id= "title">
+			THE MUSE
+		
+		</h2>
+		<h3 id= "wo">
+			UM WATCH
+		
+		</h3>
+		
+		
+		
+		<button class = "button" id="click" >Press here for instructions!</button>
+		<script>
+		$("#click").click(function(event){
+			event.preventDefault();
+			window.location="instructions-3.html"
+		});
+		</script>
+	
+		<div id="bg-right"></div>
+		
+
+	
+
+
+
+	</body>
+</html>

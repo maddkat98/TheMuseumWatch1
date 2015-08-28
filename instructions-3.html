@@ -1,0 +1,118 @@
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Fontdiner+Swanky' rel='stylesheet' type='text/css'>
+<audio autoplay loop >
+  <source src="War.mp3" type="audio/mpeg">
+</audio>
+</body>
+<style>
+body {
+    background-color:#EFEFEF;
+}
+button{
+	position: absolute;
+	top:650px;
+	left:1070px;
+    width: 330px;
+    height: 120px;
+	background-color:black;
+	color:white;
+	font-size: 200%;
+	font-family: 'Indie Flower', cursive;
+
+}
+img{
+	position:absolute;
+	left: -250px;
+    top: 0px;
+    z-index: -1;
+}
+h1{
+	position:absolute;
+	top:120px;
+	font-size: 200%;
+	color:black;
+	font-family: 'Indie Flower', cursive;
+		
+}
+h5{
+	position:absolute;
+	top:470px;
+	left:350px;
+	text-align:center;
+	font-size: 180%;
+	color:black;
+	font-family: 'Indie Flower', cursive;
+		
+}
+h4{
+	position:absolute;
+	top:280px;
+	left:650px;
+	text-align:center;
+	font-size: 150%;
+	color:black;
+	font-family: 'Fontdiner Swanky', cursive;
+		
+}
+h2{
+	position: absolute;
+	top:280px;
+	left: 50px;
+	text-align: center;
+	font-size: 150%;
+	color:black;
+	font-family: 'Fontdiner Swanky', cursive;
+		
+}
+h3{
+	position: absolute;
+	top: -50px;
+	text-align: center;
+	font-size: 500%;
+	color:black;
+	font-family: 'Fontdiner Swanky', cursive;
+}
+
+
+</style>
+<script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
+
+	
+
+
+	</head>
+	<body>
+		<h3 id "title">
+			Instructions
+		</h3>
+		<h1 id = "intro">
+			You are the museum watch! As a guarder of art, you're job is to protect them.<br> Tonight, an art thief has managed to break in and has started stealing famous paintings. It's time for you to fufill your duty!
+		</h1>
+		<h2 id="instructions">
+			Controls to move are the arrow keys:<br> Up Arrow Key(up)<br> Down Arrow Key(down)<br> Left Arrow Key(left)<br> Right Arrow Key
+		</h2>
+		<h4 id "part2">
+			A list of the stolen paintings will appear to the <br>right of the game. Catching the art<br>thief once will get you a painting back<br> and will immediately be removed from the list. 
+		</h4>
+		<h5 id "art">
+			The art thief knows a guard is after him, so don't expect him to stay in the museum too long.<br> Now go on and take those paintings back!
+		</h5>
+		<img src="blacksuit.png" width="1200" height="800" alt="blacksuit">
+				<button class = "button" id="click" >Click here to play!</button>
+		<script>
+		$("#click").click(function(event){
+			event.preventDefault();
+			window.location="museum2-3.html"
+		});
+		</script>
+	
+		
+		
+
+
+
+	</body>
+</html>
